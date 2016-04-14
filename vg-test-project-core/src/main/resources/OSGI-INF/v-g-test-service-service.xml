@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<component name="com.test.vg.service.v-g-test-service" version="1.0">
+
+  <implementation class="com.test.vg.VGTestServiceImpl" />
+
+  <service>
+    <provide interface="com.test.vg.VGTestService" />
+  </service>
+</component>

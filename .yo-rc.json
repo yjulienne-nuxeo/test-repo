@@ -1,0 +1,10 @@
+{
+  "generator-nuxeo": {
+    "promptValues": {
+      "parent_package": "com.test.vg",
+      "parent_artifact": "vg-test-project-parent",
+      "package": "com.test.vg"
+    },
+    "multi": true
+  }
+}
