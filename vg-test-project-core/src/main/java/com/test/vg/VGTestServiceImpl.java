@@ -1,5 +1,6 @@
 package com.test.vg;
 
+import org.apache.log4j.Logger;
 import org.nuxeo.runtime.model.ComponentContext;
 import org.nuxeo.runtime.model.ComponentInstance;
 import org.nuxeo.runtime.model.DefaultComponent;
@@ -16,6 +17,7 @@ public class VGTestServiceImpl extends DefaultComponent implements VGTestService
     @Override
     public void activate(ComponentContext context) {
         super.activate(context);
+        Logger.getRootLogger().info("VGTestService ACTIVATED !!!!!!!!");
     }
 
     /**

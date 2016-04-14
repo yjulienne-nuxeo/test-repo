@@ -6,4 +6,5 @@ Bundle-Version: 1.0.0
 Bundle-Name: vg-test-project-core
 Bundle-ManifestVersion: 2
 Bundle-SymbolicName: com.test.vg.vg-test-project-core;singleton=true
-Nuxeo-Component: OSGI-INF\v-g-test-service-service.xml
+Nuxeo-Component: OSGI-INF\v-g-test-service-service.xml,
+ OSGI-INF\v-g-price-computer-operation-contrib.xml
