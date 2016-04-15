@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<component name="com.test.vg.service.v-g-prices-contrib" version="1.0">
+
+  <extension point="prices" target="com.test.vg.service.v-g-test-service">
+    <price origin="JP" value="33.3"/>
+  </extension>
+  
+  <extension point="prices" target="com.test.vg.service.v-g-test-service">
+    <price origin="US" value="666.6"/>
+  </extension>
+  
+  <extension point="prices" target="com.test.vg.service.v-g-test-service">
+    <price origin="FR" value="9.9"/>
+  </extension>
+
+</component>
