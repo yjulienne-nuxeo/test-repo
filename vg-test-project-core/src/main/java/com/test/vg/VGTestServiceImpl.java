@@ -85,8 +85,8 @@ public class VGTestServiceImpl extends DefaultComponent implements VGTestService
     }
 
 	@Override
-	public double computePrice(DocumentModel doc) {
-		String origin = (String) doc.getPropertyValue(VGConstants.VGPRODUCT_ORIGIN);
+	public double computePrice(VideoGameAdapter doc) {
+		String origin = doc.getOrigin();
 		if(priceContributions.containsKey(origin)){
 			return priceContributions.get(origin);
 		}

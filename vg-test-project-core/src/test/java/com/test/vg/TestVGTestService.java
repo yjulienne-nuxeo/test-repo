@@ -36,18 +36,18 @@ public class TestVGTestService {
     
     @Test
     public void testComputePrice() {
-    	DocumentModel doc = session.createDocumentModel("/default-domain", "my-test-doc",
-				VGConstants.VGPRODUCT_TYPE);
+    	VideoGameAdapter doc = session.createDocumentModel("/default-domain", "my-test-doc",
+				VGConstants.VGPRODUCT_TYPE).getAdapter(VideoGameAdapter.class);
     	
     	assertEquals("The price value is wrong for unknown origin", 0, vGTestService.computePrice(doc),0);
     	
-    	doc.setPropertyValue(VGConstants.VGPRODUCT_ORIGIN, VGConstants.ORIGIN_US);
-    	assertEquals("The price value is wrong for ORIGIN_US", 12.5, vGTestService.computePrice(doc),0);
+    	doc.setOrigin(VGConstants.ORIGIN_US);
+    	assertEquals("The price value is wrong for ORIGIN_US", 666.6, vGTestService.computePrice(doc),0);
     	
-    	doc.setPropertyValue(VGConstants.VGPRODUCT_ORIGIN, VGConstants.ORIGIN_JAP);
-    	assertEquals("The price value is wrong for ORIGIN_JAP", 27.8, vGTestService.computePrice(doc),0);
+    	doc.setOrigin(VGConstants.ORIGIN_JAP);
+    	assertEquals("The price value is wrong for ORIGIN_JAP", 33.3, vGTestService.computePrice(doc),0);
     	
-    	doc.setPropertyValue(VGConstants.VGPRODUCT_ORIGIN, VGConstants.ORIGIN_FR);
-    	assertEquals("The price value is wrong for ORIGIN_FR", 55.9, vGTestService.computePrice(doc),0);
+    	doc.setOrigin(VGConstants.ORIGIN_FR);
+    	assertEquals("The price value is wrong for ORIGIN_FR", 9.9, vGTestService.computePrice(doc),0);
     }
 }

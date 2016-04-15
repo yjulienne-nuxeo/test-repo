@@ -24,7 +24,7 @@ public class VGPriceComputer {
         }
     
     	VGTestService vgTestService = Framework.getService(VGTestService.class);
-    	double price = vgTestService.computePrice(input);
+    	double price = vgTestService.computePrice(input.getAdapter(VideoGameAdapter.class));
     	
     	input.setPropertyValue(VGConstants.VGPRODUCT_PRICE, price);
     	

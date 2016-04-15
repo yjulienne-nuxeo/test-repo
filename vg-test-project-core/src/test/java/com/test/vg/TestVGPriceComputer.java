@@ -61,15 +61,15 @@ public class TestVGPriceComputer {
 		
 		doc.setPropertyValue(VGConstants.VGPRODUCT_ORIGIN, VGConstants.ORIGIN_US);
 		doc = (DocumentModel) automationService.run(ctx, chain);
-		assertEquals("The price value should be set", 12.5, doc.getPropertyValue(VGConstants.VGPRODUCT_PRICE));
+		assertEquals("The price value should be set", 666.6, doc.getPropertyValue(VGConstants.VGPRODUCT_PRICE));
 		
 		doc.setPropertyValue(VGConstants.VGPRODUCT_ORIGIN, VGConstants.ORIGIN_JAP);
 		doc = (DocumentModel) automationService.run(ctx, chain);
-		assertEquals("The price value should be set", 27.8, doc.getPropertyValue(VGConstants.VGPRODUCT_PRICE));
+		assertEquals("The price value should be set", 33.3, doc.getPropertyValue(VGConstants.VGPRODUCT_PRICE));
 		
 		doc.setPropertyValue(VGConstants.VGPRODUCT_ORIGIN, VGConstants.ORIGIN_FR);
 		doc = (DocumentModel) automationService.run(ctx, chain);
-		assertEquals("The price value should be set", 55.9, doc.getPropertyValue(VGConstants.VGPRODUCT_PRICE));
+		assertEquals("The price value should be set", 9.9, doc.getPropertyValue(VGConstants.VGPRODUCT_PRICE));
 	}
 
 }

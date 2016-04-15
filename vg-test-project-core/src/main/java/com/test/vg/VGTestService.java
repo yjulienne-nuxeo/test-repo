@@ -1,10 +1,8 @@
 package com.test.vg;
 
-import org.nuxeo.ecm.core.api.DocumentModel;
-
 public interface VGTestService {
 
-	double computePrice(DocumentModel doc);
+	double computePrice(VideoGameAdapter videoGameAdapter);
 	
     /** Add some methods here. **/
 }
