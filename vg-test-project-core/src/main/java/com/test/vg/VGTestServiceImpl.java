@@ -1,6 +1,8 @@
 package com.test.vg;
 
 import org.apache.log4j.Logger;
+import org.nuxeo.ecm.core.api.CoreSession;
+import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.runtime.model.ComponentContext;
 import org.nuxeo.runtime.model.ComponentInstance;
 import org.nuxeo.runtime.model.DefaultComponent;
@@ -55,4 +57,11 @@ public class VGTestServiceImpl extends DefaultComponent implements VGTestService
     public void unregisterContribution(Object contribution, String extensionPoint, ComponentInstance contributor) {
         // Logic to do when unregistering any contribution
     }
+
+	@Override
+	public DocumentModel computePrice(DocumentModel doc) {
+		doc.setPropertyValue(VGPriceComputer.VGPRODUCT_PRICE, 55.2);
+		CoreSession coreSession = doc.getCoreSession();
+		return coreSession.saveDocument(doc);
+	}
 }

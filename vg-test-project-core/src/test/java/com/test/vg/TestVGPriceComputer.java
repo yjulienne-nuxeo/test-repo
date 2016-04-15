@@ -8,6 +8,8 @@ import javax.inject.Inject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.nuxeo.ecm.automation.AutomationService;
+import org.nuxeo.ecm.automation.OperationChain;
+import org.nuxeo.ecm.automation.OperationContext;
 import org.nuxeo.ecm.automation.OperationException;
 import org.nuxeo.ecm.automation.test.AutomationFeature;
 import org.nuxeo.ecm.core.api.CoreSession;
@@ -15,6 +17,7 @@ import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.test.DefaultRepositoryInit;
 import org.nuxeo.ecm.core.test.annotations.Granularity;
 import org.nuxeo.ecm.core.test.annotations.RepositoryConfig;
+import org.nuxeo.runtime.api.Framework;
 import org.nuxeo.runtime.test.runner.Deploy;
 import org.nuxeo.runtime.test.runner.Features;
 import org.nuxeo.runtime.test.runner.FeaturesRunner;
@@ -31,16 +34,11 @@ public class TestVGPriceComputer {
 	@Inject
 	protected CoreSession session;
 
-	@Inject
-	protected AutomationService automationService;
+//	@Inject
+//	protected AutomationService automationService;
 
 	@Test
 	public void shouldCallTheOperation() throws OperationException {
-		// OperationContext ctx = new OperationContext(session);
-		// DocumentModel doc = (DocumentModel) automationService.run(ctx,
-		// VGPriceComputer.ID);
-		// assertEquals("/", doc.getPathAsString());
-
 		// Create a contract, currently stored in memory
 		DocumentModel doc = session.createDocumentModel("/default-domain", "my-test-doc",
 				VGPriceComputer.VGPRODUCT_TYPE);
@@ -48,10 +46,13 @@ public class TestVGPriceComputer {
 		// At this stage, the price value should be empty
 		assertNull(doc.getPropertyValue(VGPriceComputer.VGPRODUCT_PRICE));
 
-		// We'll save the document in the database
-		// That should trigger an event handler that will set the reminder date
-		doc = session.createDocument(doc);
-		session.save();
+		AutomationService automationService = Framework.getService(AutomationService.class);
+		OperationContext ctx = new OperationContext();
+		ctx.setCoreSession(session);
+		ctx.setInput(doc);
+		OperationChain chain = new OperationChain("testChain");
+		chain.add(VGPriceComputer.ID);
+		doc = (DocumentModel) automationService.run(ctx, chain);
 
 		assertEquals("The price value should be set", 55.2, doc.getPropertyValue(VGPriceComputer.VGPRODUCT_PRICE));
 	}
