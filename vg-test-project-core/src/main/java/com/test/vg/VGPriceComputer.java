@@ -15,20 +15,18 @@ import org.nuxeo.runtime.api.Framework;
 public class VGPriceComputer {
 
     public static final String ID = "Document.VGPriceComputer";
-    static final String VGPRODUCT_TYPE = "VGProductItem";
-    static final String VGPRODUCT_SCHEMA = "vgpi:";
-    static final String VGPRODUCT_PRICE = VGPRODUCT_SCHEMA + "price";
-    
     
     @OperationMethod(collector=DocumentModelCollector.class)
     public DocumentModel run(DocumentModel input) {
-    	if (!(VGPRODUCT_TYPE.equals(input.getType()))) {
+    	if (!(VGConstants.VGPRODUCT_TYPE.equals(input.getType()))) {
             throw new NuxeoException("Operation works only with "
-                    + VGPRODUCT_TYPE + " document type.");
+                    + VGConstants.VGPRODUCT_TYPE + " document type.");
         }
     
     	VGTestService vgTestService = Framework.getService(VGTestService.class);
-    	vgTestService.computePrice(input);
+    	double price = vgTestService.computePrice(input);
+    	
+    	input.setPropertyValue(VGConstants.VGPRODUCT_PRICE, price);
     	
         return input;
     }

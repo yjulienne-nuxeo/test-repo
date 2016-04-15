@@ -4,7 +4,7 @@ import org.nuxeo.ecm.core.api.DocumentModel;
 
 public interface VGTestService {
 
-	DocumentModel computePrice(DocumentModel doc);
+	double computePrice(DocumentModel doc);
 	
     /** Add some methods here. **/
 }

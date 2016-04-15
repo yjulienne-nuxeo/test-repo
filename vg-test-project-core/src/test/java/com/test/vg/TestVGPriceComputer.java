@@ -41,10 +41,12 @@ public class TestVGPriceComputer {
 	public void shouldCallTheOperation() throws OperationException {
 		// Create a contract, currently stored in memory
 		DocumentModel doc = session.createDocumentModel("/default-domain", "my-test-doc",
-				VGPriceComputer.VGPRODUCT_TYPE);
+				VGConstants.VGPRODUCT_TYPE);
 
+		
+		
 		// At this stage, the price value should be empty
-		assertNull(doc.getPropertyValue(VGPriceComputer.VGPRODUCT_PRICE));
+		assertNull(doc.getPropertyValue(VGConstants.VGPRODUCT_PRICE));
 
 		AutomationService automationService = Framework.getService(AutomationService.class);
 		OperationContext ctx = new OperationContext();
@@ -52,9 +54,22 @@ public class TestVGPriceComputer {
 		ctx.setInput(doc);
 		OperationChain chain = new OperationChain("testChain");
 		chain.add(VGPriceComputer.ID);
+		
 		doc = (DocumentModel) automationService.run(ctx, chain);
-
-		assertEquals("The price value should be set", 55.2, doc.getPropertyValue(VGPriceComputer.VGPRODUCT_PRICE));
+		assertEquals("The price value should be set", 0.0, doc.getPropertyValue(VGConstants.VGPRODUCT_PRICE));
+		
+		
+		doc.setPropertyValue(VGConstants.VGPRODUCT_ORIGIN, VGConstants.ORIGIN_US);
+		doc = (DocumentModel) automationService.run(ctx, chain);
+		assertEquals("The price value should be set", 12.5, doc.getPropertyValue(VGConstants.VGPRODUCT_PRICE));
+		
+		doc.setPropertyValue(VGConstants.VGPRODUCT_ORIGIN, VGConstants.ORIGIN_JAP);
+		doc = (DocumentModel) automationService.run(ctx, chain);
+		assertEquals("The price value should be set", 27.8, doc.getPropertyValue(VGConstants.VGPRODUCT_PRICE));
+		
+		doc.setPropertyValue(VGConstants.VGPRODUCT_ORIGIN, VGConstants.ORIGIN_FR);
+		doc = (DocumentModel) automationService.run(ctx, chain);
+		assertEquals("The price value should be set", 55.9, doc.getPropertyValue(VGConstants.VGPRODUCT_PRICE));
 	}
 
 }

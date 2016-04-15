@@ -37,15 +37,17 @@ public class TestVGTestService {
     @Test
     public void testComputePrice() {
     	DocumentModel doc = session.createDocumentModel("/default-domain", "my-test-doc",
-				VGPriceComputer.VGPRODUCT_TYPE);
-    	session.createDocument(doc);
+				VGConstants.VGPRODUCT_TYPE);
     	
-    	// At this stage, the price value should be empty
-    	assertNull(doc.getPropertyValue(VGPriceComputer.VGPRODUCT_PRICE));
+    	assertEquals("The price value is wrong for unknown origin", 0, vGTestService.computePrice(doc),0);
     	
-    	vGTestService.computePrice(doc);
-    	session.save();
+    	doc.setPropertyValue(VGConstants.VGPRODUCT_ORIGIN, VGConstants.ORIGIN_US);
+    	assertEquals("The price value is wrong for ORIGIN_US", 12.5, vGTestService.computePrice(doc),0);
     	
-    	assertEquals("The price value should be set", 55.2, doc.getPropertyValue(VGPriceComputer.VGPRODUCT_PRICE));
+    	doc.setPropertyValue(VGConstants.VGPRODUCT_ORIGIN, VGConstants.ORIGIN_JAP);
+    	assertEquals("The price value is wrong for ORIGIN_JAP", 27.8, vGTestService.computePrice(doc),0);
+    	
+    	doc.setPropertyValue(VGConstants.VGPRODUCT_ORIGIN, VGConstants.ORIGIN_FR);
+    	assertEquals("The price value is wrong for ORIGIN_FR", 55.9, vGTestService.computePrice(doc),0);
     }
 }

@@ -1,5 +1,6 @@
 package com.test.vg;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -59,9 +60,17 @@ public class VGTestServiceImpl extends DefaultComponent implements VGTestService
     }
 
 	@Override
-	public DocumentModel computePrice(DocumentModel doc) {
-		doc.setPropertyValue(VGPriceComputer.VGPRODUCT_PRICE, 55.2);
-		CoreSession coreSession = doc.getCoreSession();
-		return coreSession.saveDocument(doc);
+	public double computePrice(DocumentModel doc) {
+		String origin = (String) doc.getPropertyValue(VGConstants.VGPRODUCT_ORIGIN);
+		if(StringUtils.equalsIgnoreCase(origin, VGConstants.ORIGIN_US)){
+			return 12.5;
+		}
+		else if(StringUtils.equalsIgnoreCase(origin, VGConstants.ORIGIN_JAP)){
+			return 27.8;
+		}
+		else if(StringUtils.equalsIgnoreCase(origin, VGConstants.ORIGIN_FR)){
+			return 55.9;
+		}
+		return 0;
 	}
 }
