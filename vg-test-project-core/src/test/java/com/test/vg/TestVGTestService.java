@@ -15,12 +15,10 @@ import org.nuxeo.runtime.test.runner.FeaturesRunner;
 import org.nuxeo.runtime.test.runner.LocalDeploy;
 
 import com.google.inject.Inject;
+import com.test.vg.feature.VGFeature;
 
 @RunWith(FeaturesRunner.class)
-@Features({ PlatformFeature.class })
-@Deploy({ "com.test.vg.vg-test-project-core", "studio.extensions.yjulienne-SANDBOX" })
-@LocalDeploy({ "com.test.vg.vg-test-project-core:mocked-filemanager-contrib.xml",
-		"com.test.vg.vg-test-project-core:mocked-actions.xml" })
+@Features({ VGFeature.class })
 public class TestVGTestService {
 
 	@Inject

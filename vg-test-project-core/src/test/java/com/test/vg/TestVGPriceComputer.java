@@ -18,24 +18,18 @@ import org.nuxeo.ecm.core.test.DefaultRepositoryInit;
 import org.nuxeo.ecm.core.test.annotations.Granularity;
 import org.nuxeo.ecm.core.test.annotations.RepositoryConfig;
 import org.nuxeo.runtime.api.Framework;
-import org.nuxeo.runtime.test.runner.Deploy;
 import org.nuxeo.runtime.test.runner.Features;
 import org.nuxeo.runtime.test.runner.FeaturesRunner;
-import org.nuxeo.runtime.test.runner.LocalDeploy;
+
+import com.test.vg.feature.VGFeature;
 
 @RunWith(FeaturesRunner.class)
-@Features(AutomationFeature.class)
+@Features({ VGFeature.class, AutomationFeature.class })
 @RepositoryConfig(init = DefaultRepositoryInit.class, cleanup = Granularity.METHOD)
-@Deploy({ "com.test.vg.vg-test-project-core", "studio.extensions.yjulienne-SANDBOX" })
-@LocalDeploy({ "com.test.vg.vg-test-project-core:mocked-filemanager-contrib.xml",
-		"com.test.vg.vg-test-project-core:mocked-actions.xml" })
 public class TestVGPriceComputer {
 
 	@Inject
 	protected CoreSession session;
-
-//	@Inject
-//	protected AutomationService automationService;
 
 	@Test
 	public void shouldCallTheOperation() throws OperationException {
@@ -43,8 +37,6 @@ public class TestVGPriceComputer {
 		DocumentModel doc = session.createDocumentModel("/default-domain", "my-test-doc",
 				VGConstants.VGPRODUCT_TYPE);
 
-		
-		
 		// At this stage, the price value should be empty
 		assertNull(doc.getPropertyValue(VGConstants.VGPRODUCT_PRICE));
 
