@@ -24,7 +24,7 @@ import org.nuxeo.runtime.test.runner.FeaturesRunner;
 import com.test.vg.feature.VGFeature;
 
 @RunWith(FeaturesRunner.class)
-@Features({ VGFeature.class, AutomationFeature.class })
+@Features({ AutomationFeature.class, VGFeature.class })
 @RepositoryConfig(init = DefaultRepositoryInit.class, cleanup = Granularity.METHOD)
 public class TestVGPriceComputer {
 
