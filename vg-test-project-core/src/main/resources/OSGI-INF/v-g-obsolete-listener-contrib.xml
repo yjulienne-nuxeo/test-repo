@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<component name="org.nuxeo.ecm.platform.annotations.repository.listener">
+  <extension target="org.nuxeo.ecm.core.event.EventServiceComponent" point="listener">
+    <listener name="productObsoleteListener" async="false" postCommit="true"
+        class="com.test.vg.VGProductObsoleteListener">
+      <event>documentModified</event>
+    </listener>
+  </extension>
+</component>

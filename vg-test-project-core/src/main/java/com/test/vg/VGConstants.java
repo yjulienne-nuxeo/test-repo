@@ -9,4 +9,6 @@ public class VGConstants {
 	public static final String ORIGIN_US = "US";
 	public static final String ORIGIN_JAP = "JAP";
 	public static final String ORIGIN_FR = "FR";
+	
+	public static final String OBSOLETE_STATE = "obsolete";
 }
