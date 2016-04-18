@@ -37,84 +37,96 @@ import org.nuxeo.ecm.webapp.documentsLists.DocumentsListsManager;
 @Scope(ScopeType.EVENT)
 public class TestBean implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    private static final Log log = LogFactory.getLog(TestBean.class);
+	private static final Log log = LogFactory.getLog(TestBean.class);
 
-    @In(create = true, required = false)
-    protected transient CoreSession documentManager;
+	@In(create = true, required = false)
+	protected transient CoreSession documentManager;
 
-    @In(create = true)
-    protected NavigationContext navigationContext;
+	@In(create = true)
+	protected NavigationContext navigationContext;
 
-    @In(create = true, required = false)
-    protected transient FacesMessages facesMessages;
+	@In(create = true, required = false)
+	protected transient FacesMessages facesMessages;
 
-    @In(create = true, required = false)
-    protected NuxeoPrincipal currentNuxeoPrincipal;
+	@In(create = true, required = false)
+	protected NuxeoPrincipal currentNuxeoPrincipal;
 
-    @In(create = true)
-    protected DocumentsListsManager documentsListsManager;
+	@In(create = true)
+	protected DocumentsListsManager documentsListsManager;
 
-    // Sample code to show how to retrieve the list of selected documents in the
-    // content listing view
-    protected List<DocumentModel> getCurrentlySelectedDocuments() {
+//	@In(create = true)
+//	protected VGTestService vgTestService;
 
-        if (navigationContext.getCurrentDocument().isFolder()) {
-            return documentsListsManager.getWorkingList(DocumentsListsManager.CURRENT_DOCUMENT_SELECTION);
-        } else {
-            return null;
-        }
-    }
+	// Sample code to show how to retrieve the list of selected documents in the
+	// content listing view
+	protected List<DocumentModel> getCurrentlySelectedDocuments() {
 
-    // This the method that will be called when the action button/link is
-    // clicked
-    public String doGet() {
-        List<DocumentModel> selectedDocs = getCurrentlySelectedDocuments();
-        
-        Map<String, Serializable> distributor = new HashMap<>();
-        distributor.put(VGConstants.VGPRODUCT_DISTRIB_NAME, "CapCOM");
-        distributor.put(VGConstants.VGPRODUCT_DISTRIB_SELL_LOCATION, "Australia");
-        
-        for (DocumentModel doc : selectedDocs) {
-			doc.setPropertyValue(VGConstants.VGPRODUCT_DISTRIBUTOR, (Serializable) distributor);
-			documentManager.saveDocument(doc);
+		if (navigationContext.getCurrentDocument().isFolder()) {
+			return documentsListsManager.getWorkingList(DocumentsListsManager.CURRENT_DOCUMENT_SELECTION);
+		} else {
+			return null;
 		}
-        
-        String message = "Distributor updated for "+ selectedDocs.size()
-        + " documents";
-        
-        facesMessages.add(StatusMessage.Severity.INFO, message);
+	}
 
-        // if you need to change the current document and let Nuxeo
-        // select the correct view
-        // you can use navigationContext and return the view
-        //
-        // return navigationContext.navigateToDocument(doc);
+	// This the method that will be called when the action button/link is
+	// clicked
+	public String doGet() {
+		List<DocumentModel> selectedDocs = getCurrentlySelectedDocuments();
 
-        // If you want to explicitly go to a given view
-        // just return the outcome string associated to the view
-        //
-        // return "someView";
+		Map<String, Serializable> distributor = new HashMap<>();
+		distributor.put(VGConstants.VGPRODUCT_DISTRIB_NAME, "CapCOM");
+		distributor.put(VGConstants.VGPRODUCT_DISTRIB_SELL_LOCATION, "Australia");
 
-        // stay on the same view
-        return null;
-    }
+		int counter = 0;
+		for (DocumentModel doc : selectedDocs) {
+			String type = doc.getType();
+			if (VGConstants.VGPRODUCT_TYPE.equals(type)){
+				doc.setPropertyValue(VGConstants.VGPRODUCT_DISTRIBUTOR, (Serializable) distributor);
+				documentManager.saveDocument(doc);
+				counter++;
+			}
+		}
 
-    // this method will be called by the action system to determine if the
-    // action should be available
-    //
-    // the return value can depend on the context,
-    // you can use the navigationContext to get the currentDocument,
-    // currentWorkspace ...
-    // you can cache the value in a member variable as long as the Bean stays
-    // Event scoped
-    //
-    // if you don't need this, you should remove the filter in the associated
-    // action contribution
-    public boolean accept() {
-    	//Action only available in Video Game workspace
-    	return VGConstants.VG_WORKSPACE.equals(navigationContext.getCurrentDocument().getTitle());
-    }
+		String message = "Distributor updated for "+ counter
+				+ " documents";
+
+		facesMessages.add(StatusMessage.Severity.INFO, message);
+
+		// if you need to change the current document and let Nuxeo
+		// select the correct view
+		// you can use navigationContext and return the view
+		//
+		// return navigationContext.navigateToDocument(doc);
+
+		// If you want to explicitly go to a given view
+		// just return the outcome string associated to the view
+		//
+		// return "someView";
+
+		// stay on the same view
+		return null;
+	}
+
+	// this method will be called by the action system to determine if the
+	// action should be available
+	//
+	// the return value can depend on the context,
+	// you can use the navigationContext to get the currentDocument,
+	// currentWorkspace ...
+	// you can cache the value in a member variable as long as the Bean stays
+	// Event scoped
+	//
+	// if you don't need this, you should remove the filter in the associated
+	// action contribution
+	public boolean accept() {
+		//Action only available in Video Game workspace
+		return VGConstants.VG_WORKSPACE.equals(navigationContext.getCurrentDocument().getTitle());
+	}
+
+	public VideoGameAdapter getVgAdapter(){
+		return navigationContext.getCurrentDocument().getAdapter(VideoGameAdapter.class);
+	}
 
 }

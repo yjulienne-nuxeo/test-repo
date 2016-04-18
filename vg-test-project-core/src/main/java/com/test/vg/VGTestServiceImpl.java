@@ -1,5 +1,6 @@
 package com.test.vg;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -100,5 +101,11 @@ public class VGTestServiceImpl extends DefaultComponent implements VGTestService
 			return 55.9;
 		}
 		return 0;
+	}
+
+	@Override
+	public String computeDistributorPolicy(VideoGameAdapter videoGameAdapter) {
+		Map<String, Serializable> distributor = (Map<String, Serializable>)videoGameAdapter.getDistributor();
+		return distributor.get(VGConstants.VGPRODUCT_DISTRIB_NAME) + " " + distributor.get(VGConstants.VGPRODUCT_DISTRIB_SELL_LOCATION) + " Policy";
 	}
 }

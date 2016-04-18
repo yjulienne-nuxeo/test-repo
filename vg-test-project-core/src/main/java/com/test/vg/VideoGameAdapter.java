@@ -13,6 +13,7 @@ import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.Blob;
 import org.nuxeo.ecm.core.api.PropertyException;
+import org.nuxeo.runtime.api.Framework;
 
 /**
  * @author Yannis
@@ -95,6 +96,10 @@ public class VideoGameAdapter {
 
     public void setSize(Long value) throws PropertyException, NuxeoException {
         doc.setPropertyValue("vgpi:size", value);
+    }
+    
+    public String getDistributorPolicy(){
+    	return Framework.getService(VGTestService.class).computeDistributorPolicy(this);
     }
 
 }
