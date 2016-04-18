@@ -6,5 +6,9 @@ Bundle-ClassPath: .
 Bundle-ActivationPolicy: lazy
 Bundle-ManifestVersion: 2
 Bundle-Vendor: com.test.vg
-Nuxeo-Component: OSGI-INF/v-g-test-service-service.xml,OSGI-INF/v-g-price-computer-operation-contrib.xml,OSGI-INF/v-g-test-service-prices-contrib.xml,OSGI-INF/extensions/com.test.vg.VideoGameAdapter.xml,OSGI-INF/v-g-obsolete-listener-contrib.xml
+Nuxeo-Component: OSGI-INF/v-g-test-service-service.xml,OSGI-INF/v-g-pr
+ ice-computer-operation-contrib.xml,OSGI-INF/v-g-test-service-prices-c
+ ontrib.xml,OSGI-INF/extensions/com.test.vg.VideoGameAdapter.xml,OSGI-
+ INF/v-g-obsolete-listener-contrib.xml,OSGI-INF/extensions/com.test.vg
+ .TestBean.xml
 
