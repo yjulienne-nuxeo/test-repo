@@ -11,4 +11,4 @@ Nuxeo-Component: OSGI-INF/v-g-test-service-service.xml,OSGI-INF/v-g-pr
  ontrib.xml,OSGI-INF/extensions/com.test.vg.VideoGameAdapter.xml,OSGI-
  INF/v-g-obsolete-listener-contrib.xml,OSGI-INF/extensions/com.test.vg
  .TestBean.xml
-
+Nuxeo-WebModule: com.test.vg.VGWebApp

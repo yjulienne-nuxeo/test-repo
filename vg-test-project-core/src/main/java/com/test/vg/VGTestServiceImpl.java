@@ -108,4 +108,13 @@ public class VGTestServiceImpl extends DefaultComponent implements VGTestService
 		Map<String, Serializable> distributor = (Map<String, Serializable>)videoGameAdapter.getDistributor();
 		return distributor.get(VGConstants.VGPRODUCT_DISTRIB_NAME) + " " + distributor.get(VGConstants.VGPRODUCT_DISTRIB_SELL_LOCATION) + " Policy";
 	}
+
+	@Override
+	public long getVGCount(DocumentModel vgWorkspace) {
+		long count = 0;
+		if(vgWorkspace.isFolder()){
+			count = vgWorkspace.getCoreSession().getChildren(vgWorkspace.getRef()).totalSize();
+		}
+		return count;
+	}
 }
