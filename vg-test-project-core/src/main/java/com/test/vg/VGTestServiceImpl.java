@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.Logger;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.runtime.model.ComponentContext;
@@ -16,6 +18,7 @@ public class VGTestServiceImpl extends DefaultComponent implements VGTestService
 
     private Bundle bundle;
 	private Map<String, Double> priceContributions;
+	private static final Log log = LogFactory.getLog(VGTestServiceImpl.class);
 
 	/**
      * Component activated notification.
@@ -27,7 +30,8 @@ public class VGTestServiceImpl extends DefaultComponent implements VGTestService
     @Override
     public void activate(ComponentContext context) {
         super.activate(context);
-        Logger.getRootLogger().info("VGTestService ACTIVATED !!!!!!!!");
+        log.info("VGTestService ACTIVATED !!!!!!!!");
+        
         bundle = context.getRuntimeContext().getBundle();
         priceContributions = new HashMap<>();
     }
